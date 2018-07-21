@@ -8,7 +8,9 @@ namespace Host.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<CommandSender>().As<ICommand>().SingleInstance();
+            builder.RegisterType<EventPublisher>().As<IEventPublisher>().SingleInstance();
+            builder.RegisterType<CommandSender>().As<ICommandSender>().SingleInstance();
+            builder.RegisterType(typeof(InMemoryAggregateRepository<>)).As(typeof(IAggregateRepository<>)).SingleInstance();
         }
     }
 }
