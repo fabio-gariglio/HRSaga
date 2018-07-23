@@ -1,14 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.8.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EventSourcing.Concrete\EventSourcing.Concrete.csproj" />
     <ProjectReference Include="..\EventSourcing\EventSourcing.csproj" />
-    <ProjectReference Include="..\HRSaga\HRSaga.csproj" />
   </ItemGroup>
 </Project>

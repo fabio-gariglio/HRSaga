@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Autofac;
+using EventSourcing;
+using Host.Modules;
 
 namespace Host
 {
@@ -6,7 +8,19 @@ namespace Host
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var container = CreateContainer();
+
+            var commandSender = container.Resolve<ICommandSender>();
+        }
+
+        private static IContainer CreateContainer()
+        {
+            var containerBuilder = new ContainerBuilder();
+            containerBuilder.RegisterModule<EventSourcingModule>();
+            containerBuilder.RegisterModule<HRSagaModule>();
+
+            var containter = containerBuilder.Build();
+            return containter;
         }
     }
 }
