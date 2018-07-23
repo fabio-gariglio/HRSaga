@@ -2,7 +2,7 @@
 
 namespace HRSaga.HiringContext.Aggregates
 {
-    public class Hireable : Aggregate
+    public class Hireable : AggregateBase
     {
         
     }

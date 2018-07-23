@@ -1,6 +1,6 @@
 ﻿namespace EventSourcing
 {
-    public interface IAggregateRepository<TAggregate> where TAggregate : Aggregate
+    public interface IAggregateRepository<TAggregate> where TAggregate : IAggregate
     {
         TAggregate GetById(string id);
 

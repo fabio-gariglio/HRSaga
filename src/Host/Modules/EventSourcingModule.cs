@@ -10,7 +10,8 @@ namespace Host.Modules
         {
             builder.RegisterType<EventPublisher>().As<IEventPublisher>().SingleInstance();
             builder.RegisterType<CommandSender>().As<ICommandSender>().SingleInstance();
-            builder.RegisterGeneric(typeof(InMemoryAggregateRepository<>)).As(typeof(IAggregateRepository<>)).SingleInstance();
+            builder.RegisterType<InMemoryEventStore>().As<IEventStore>().SingleInstance();
+            builder.RegisterGeneric(typeof(AggregateRepository<>)).As(typeof(IAggregateRepository<>)).SingleInstance();
         }
     }
 }
