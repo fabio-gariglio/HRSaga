@@ -13,11 +13,8 @@ namespace Host
             var container = CreateContainer();
 
             var commandSender = container.Resolve<ICommandSender>();
-            
-            commandSender.Send(new CreateCaptainCommand
-            {
-                Name = "player-1"
-            });
+
+            commandSender.Send(new CreateWorldCommand());
         }
 
         private static IContainer CreateContainer()

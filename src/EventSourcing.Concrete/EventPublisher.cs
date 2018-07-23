@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Autofac;
+using EventSourcing.Extensions;
 
 namespace EventSourcing.Concrete
 {
@@ -28,6 +30,6 @@ namespace EventSourcing.Concrete
             {
                 eventHandler.Handle(@event);
             }
-        }        
+        } 
     }
 }
