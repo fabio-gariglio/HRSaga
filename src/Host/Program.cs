@@ -1,6 +1,8 @@
 ﻿using Autofac;
 using EventSourcing;
 using Host.Modules;
+using HRSaga.UnknownContext.Aggregates;
+using HRSaga.UnknownContext.Commands;
 
 namespace Host
 {
@@ -11,6 +13,11 @@ namespace Host
             var container = CreateContainer();
 
             var commandSender = container.Resolve<ICommandSender>();
+            
+            commandSender.Send(new CreateCaptainCommand
+            {
+                Name = "player-1"
+            });
         }
 
         private static IContainer CreateContainer()

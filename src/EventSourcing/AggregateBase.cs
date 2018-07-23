@@ -1,19 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Reflection;
 
 namespace EventSourcing
 {
-    public interface IAggregate
-    {
-        string Id { get; }
-        IEnumerable<IEvent> Flush();
-        void Hydrates(IEnumerable<IEvent> events);
-    }
-    
     public abstract class AggregateBase : IAggregate
     {
-        private readonly List<IEvent> _uncommittedEvents = new List<IEvent>();
-        
-        public string Id { get; protected set; }      
+        public string Id { get; protected set; }
+
+        private readonly List<IEvent> _uncommittedEvents;
+        private readonly IDictionary<Type, MethodInfo> _methodByEventTypeMapping;
+
+        protected AggregateBase()
+        {
+            _uncommittedEvents = new List<IEvent>();
+            _methodByEventTypeMapping = GetMethodByEventTypeMapping();
+        }
 
         public IEnumerable<IEvent> Flush()
         {
@@ -40,10 +44,29 @@ namespace EventSourcing
 
         private void ApplyEvent(IEvent @event)
         {
-            var whenMethod = GetType().GetMethod("When", new[] {@event.GetType()});
-            if (whenMethod == null) return;
+            if(_methodByEventTypeMapping.TryGetValue(@event.GetType(), out var methodInfo))
+            {
+                methodInfo.Invoke(this, new object[] {@event});
+            }
+        }
 
-            whenMethod.Invoke(this, new object[] {@event});
+        private IDictionary<Type, MethodInfo> GetMethodByEventTypeMapping()
+        {
+            var mapping = GetType()
+                .GetMethods(BindingFlags.Instance | BindingFlags.NonPublic)
+                .Where(HandlesEvents)
+                .ToDictionary(m => m.GetParameters().First().ParameterType, m => m);
+
+            return mapping;
+        }
+
+        private static bool HandlesEvents(MethodInfo methodInfo)
+        {
+            if (methodInfo.Name != "When") return false;
+
+            var parameters = methodInfo.GetParameters();
+
+            return parameters.Length == 1;
         }
     }
 }

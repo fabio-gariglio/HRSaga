@@ -6,10 +6,12 @@ namespace EventSourcing.Concrete
         where TAggregate : IAggregate, new()
     {
         private readonly IEventStore _eventStore;
+        private readonly IEventPublisher _eventPublisher;
 
-        public AggregateRepository(IEventStore eventStore)
+        public AggregateRepository(IEventStore eventStore, IEventPublisher eventPublisher)
         {
             _eventStore = eventStore;
+            _eventPublisher = eventPublisher;
         }
         
         public TAggregate GetById(string id)
@@ -31,6 +33,11 @@ namespace EventSourcing.Concrete
             if (!events.Any()) return;;
             
             _eventStore.AppendEvents(events, aggregate.Id);
+
+            foreach (var @event in events)
+            {
+                _eventPublisher.Publish(@event);
+            }
         }
     }
 }

@@ -1,9 +1,6 @@
-﻿using System;
-
-namespace EventSourcing
+﻿namespace EventSourcing
 {
     public interface ICommand
     {
-        string AggregateId { get; set; }
     }
 }

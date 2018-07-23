@@ -22,7 +22,7 @@ namespace EventSourcing.Concrete
 
         private List<IEvent> GetEventStreamOrCreate(string aggregateId)
         {
-            if (_eventStore.TryGetValue(aggregateId, out var eventStream))
+            if (!_eventStore.TryGetValue(aggregateId, out var eventStream))
             {
                 eventStream = new List<IEvent>();
                 _eventStore.Add(aggregateId, eventStream);
