@@ -1,21 +1,26 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
 using EventSourcing;
 using Host.Modules;
-using HRSaga.UnknownContext.Aggregates;
 using HRSaga.UnknownContext.Commands;
-using HRSaga.UnknownContext.DomainEvents;
 
 namespace Host
 {
     class Program
     {
+        static Random _random = new Random();
+        
         static void Main(string[] args)
         {
             var container = CreateContainer();
 
             var commandSender = container.Resolve<ICommandSender>();
 
-            commandSender.Send(new CreateWorldCommand());
+            commandSender.Send(new CreateWorldCommand
+            {
+                NumberOfWarriors = _random.Next(5, 10),
+                NumberOfWizards = _random.Next(5, 10)
+            });
         }
 
         private static IContainer CreateContainer()

@@ -22,20 +22,16 @@ namespace HRSaga.UnknownContext.CommandHandler
             {
                 Name = "player-1"
             });
-           
-            Enumerable.Range(0, _random.Next(5, 10))
-                .ToList()
-                .ForEach(index => _commandSender.Send(new CreateWarriorCommand
-                {
-                    Name = $"warrior_{index}"
-                }));
+
+            for (var i = 0; i < command.NumberOfWarriors; i++)
+            {
+                _commandSender.Send(new CreateWarriorCommand {Name = $"warrior_{i}"});
+            }
             
-            Enumerable.Range(0, _random.Next(5, 10))
-                .ToList()
-                .ForEach(index => _commandSender.Send(new CreateWizardCommand()
-                {
-                    Name = $"wizard_{index}"
-                }));            
+            for (var i = 0; i < command.NumberOfWizards; i++)
+            {
+                _commandSender.Send(new CreateWizardCommand {Name = $"wizard_{i}"});
+            }
         }
     }
 }
