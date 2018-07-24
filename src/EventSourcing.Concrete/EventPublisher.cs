@@ -19,7 +19,12 @@ namespace EventSourcing.Concrete
         
         public void Publish(IEvent @event)
         {
-            _publishMethodInfo.MakeGenericMethod(@event.GetType()).Invoke(this, new object [] {@event});
+            var baseEventTypes = @event.GetType().GetTypeHierarchy().Where(typeof(IEvent).IsAssignableFrom);
+
+            foreach (var eventType in baseEventTypes)
+            {
+                _publishMethodInfo.MakeGenericMethod(eventType).Invoke(this, new object [] {@event});    
+            }
         }
         
         private void PublishInternal<TEvent>(TEvent @event) where TEvent : IEvent
