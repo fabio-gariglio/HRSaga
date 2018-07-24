@@ -1,5 +1,6 @@
 ﻿using System;
 using EventSourcing;
+using Newtonsoft.Json;
 
 namespace Host
 {
@@ -8,6 +9,8 @@ namespace Host
         public void Handle(IEvent @event)
         {
             Console.WriteLine(@event.GetType().Name);
+            Console.WriteLine(JsonConvert.SerializeObject(@event));
+            Console.WriteLine();
         }
     }
 }
