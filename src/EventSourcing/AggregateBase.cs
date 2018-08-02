@@ -6,6 +6,7 @@ namespace EventSourcing
     public abstract class AggregateBase : IAggregate
     {
         public string Id { get; protected set; }
+        public long Version { get; private set; }
 
         private readonly List<IEvent> _uncommittedEvents = new List<IEvent>();
 
@@ -22,15 +23,22 @@ namespace EventSourcing
         {          
             foreach (var @event in events)
             {
-                this.ApplyEvent(@event);
+                ApplyInternal(@event);
             }
         }
 
         protected void Apply(IEvent @event)
         {
-            this.ApplyEvent(@event);
+            ApplyInternal(@event);
             
             _uncommittedEvents.Add(@event);
+        }
+
+        private void ApplyInternal(IEvent @event)
+        {
+            Version++;
+            
+            this.ApplyEvent(@event);
         }
     }
 }

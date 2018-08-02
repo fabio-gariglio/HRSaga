@@ -1,6 +1,6 @@
 ﻿using EventSourcing;
 
-namespace HRSaga.UnknownContext.Commands
+namespace HRSaga.GameContext.Commands
 {
     public class CreateWizardCommand : ICommand
     {

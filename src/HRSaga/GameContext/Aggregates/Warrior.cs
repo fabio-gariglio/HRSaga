@@ -1,8 +1,8 @@
 ﻿using System;
 using EventSourcing;
-using HRSaga.UnknownContext.DomainEvents;
+using HRSaga.GameContext.DomainEvents;
 
-namespace HRSaga.UnknownContext.Aggregates
+namespace HRSaga.GameContext.Aggregates
 {
     public class Warrior : AggregateBase
     {

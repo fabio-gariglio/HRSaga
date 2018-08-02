@@ -1,6 +1,6 @@
 ﻿using EventSourcing;
 
-namespace HRSaga.UnknownContext.DomainEvents
+namespace HRSaga.GameContext.DomainEvents
 {
     public class WarriorCreatedDomainEvent : IEvent
     {

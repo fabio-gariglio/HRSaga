@@ -1,8 +1,8 @@
 ﻿using EventSourcing;
-using HRSaga.UnknownContext.Aggregates;
-using HRSaga.UnknownContext.Commands;
+using HRSaga.GameContext.Aggregates;
+using HRSaga.GameContext.Commands;
 
-namespace HRSaga.UnknownContext.CommandHandler
+namespace HRSaga.GameContext.CommandHandler
 {
     public class CreateCaptainCommandHandler : ICommandHandler<CreateCaptainCommand>
     {

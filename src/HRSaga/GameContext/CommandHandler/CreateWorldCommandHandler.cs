@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Linq;
 using EventSourcing;
-using HRSaga.UnknownContext.Commands;
+using HRSaga.GameContext.Commands;
 
-namespace HRSaga.UnknownContext.CommandHandler
+namespace HRSaga.GameContext.CommandHandler
 {
     public class CreateWorldCommandHandler : ICommandHandler<CreateWorldCommand>
     {
@@ -17,7 +16,7 @@ namespace HRSaga.UnknownContext.CommandHandler
         }
         
         public void Handle(CreateWorldCommand command)
-        {
+        {          
             _commandSender.Send(new CreateCaptainCommand
             {
                 Name = "player-1"

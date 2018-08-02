@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Autofac;
 using EventSourcing;
-using HRSaga.UnknownContext.Aggregates;
+using HRSaga.GameContext.Aggregates;
 
 namespace Host.Modules
 {
