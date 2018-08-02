@@ -1,6 +1,6 @@
 ﻿using EventSourcing;
+using HRSaga.GameContext.DomainEvents;
 using HRSaga.HiringContext.Aggregates;
-using HRSaga.UnknownContext.DomainEvents;
 
 namespace HRSaga.HiringContext.EventHandlers
 {

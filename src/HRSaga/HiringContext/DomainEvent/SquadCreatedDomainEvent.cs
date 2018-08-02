@@ -1,6 +1,6 @@
 ﻿using EventSourcing;
 
-namespace HRSaga.HiringContext.Events
+namespace HRSaga.HiringContext.DomainEvent
 {
     public class SquadCreatedDomainEvent : IEvent
     {
